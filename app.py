@@ -22,7 +22,14 @@ from urllib.request import urlopen
 import random
 
 directory="./data/pact_strategy_results"
-
+with open('./data/geo_json.json') as response:
+    counties = json.load(response)
+    response.close()
+cbg_fips=pd.read_csv('./data/safegraph/cbg_fips_codes.csv')
+cbg_fips["Susceptible"]=[random.randint(1,30) for i in range(cbg_fips.shape[0])]
+cbg_fips["Exposed"]=[random.randint(1,30) for i in range(cbg_fips.shape[0])]
+cbg_fips["Infected"]=[random.randint(1,30) for i in range(cbg_fips.shape[0])]
+cbg_fips["Recovered"]=[random.randint(1,30) for i in range(cbg_fips.shape[0])]
 def combinejson(directory):
     totaloutput=pd.DataFrame(columns=['intervention','no_intervention','time','strategy'])
     i=0
