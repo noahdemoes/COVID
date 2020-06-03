@@ -30,6 +30,61 @@ cbg_fips["Susceptible"]=[random.randint(1,30) for i in range(cbg_fips.shape[0])]
 cbg_fips["Exposed"]=[random.randint(1,30) for i in range(cbg_fips.shape[0])]
 cbg_fips["Infected"]=[random.randint(1,30) for i in range(cbg_fips.shape[0])]
 cbg_fips["Recovered"]=[random.randint(1,30) for i in range(cbg_fips.shape[0])]
+fips=[]
+state=list(cbg_fips['state_fips'])
+county=list(cbg_fips['county_fips'])
+max_class=[]
+classes=["Susceptible","Exposed","Infected","Recovered"]
+for i in  range(len(county)):
+    if len(str(state[i]))==1:
+        b="0"+str(state[i])
+
+    else:
+        b=str(state[i])
+    if len(str(county[i]))==1:
+        c="00"+str(county[i])
+    elif len(str(county[i]))==2:
+        c="0"+str(county[i])
+    else:
+        c=str(county[i])
+    class_comparison=[cbg_fips["Susceptible"][i],cbg_fips["Exposed"][i],cbg_fips["Infected"][i],cbg_fips["Recovered"][i]]
+    max_cl=max(class_comparison)
+    classes[class_comparison.index(max_cl)]
+    fips.append(b+c)
+    max_class.append(classes[class_comparison.index(max_cl)])
+cbg_fips['FIPS']=fips
+cbg_fips["Majority Class"]=max_class
+cbg_fips['time']=[0]*len(fips)
+x=cbg_fips.values
+cbg_fips2=pd.DataFrame(x,columns=cbg_fips.columns)
+for i in range(1,15):
+    cbg_fips2["Susceptible"]=[random.randint(1,30) for i in range(x.shape[0])]
+    cbg_fips2["Exposed"]=[random.randint(1,30) for i in range(x.shape[0])]
+    cbg_fips2["Infected"]=[random.randint(1,30) for i in range(x.shape[0])]
+    cbg_fips2["Recovered"]=[random.randint(1,30) for i in range(x.shape[0])]
+    cbg_fips2['time']=[i]*x.shape[0]
+    max_class=[]
+    classes=["Susceptible","Exposed","Infected","Recovered"]
+    for i in  range(len(county)):
+        if len(str(state[i]))==1:
+            b="0"+str(state[i])
+
+        else:
+            b=str(state[i])
+        if len(str(county[i]))==1:
+            c="00"+str(county[i])
+        elif len(str(county[i]))==2:
+            c="0"+str(county[i])
+        else:
+            c=str(county[i])
+        class_comparison=[cbg_fips2["Susceptible"][i],cbg_fips2["Exposed"][i],cbg_fips2["Infected"][i],cbg_fips2["Recovered"][i]]
+        max_cl=max(class_comparison)
+        classes[class_comparison.index(max_cl)]
+        fips.append(b+c)
+        max_class.append(classes[class_comparison.index(max_cl)])
+    cbg_fips2["Majority Class"]=max_class
+    cbg_fips=pd.concat([cbg_fips,cbg_fips2])
+    
 def combinejson(directory):
     totaloutput=pd.DataFrame(columns=['intervention','no_intervention','time','strategy'])
     i=0
