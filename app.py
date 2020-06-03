@@ -415,7 +415,7 @@ app.layout = html.Div([
 ])
 ])
 
-server = app.server 
+server = app.server
 @app.callback(
     dash.dependencies.Output('intervention-output-container', 'children'),
     [dash.dependencies.Input('intervention-dropdown', 'value')])
