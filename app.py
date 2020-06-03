@@ -477,7 +477,7 @@ app.layout = html.Div([
             html.H1('COVID Tracker', className="app-header--title"),
         ]
     ),html.Div([
-          dcc.Graph(figure=fig1)]),
+          dcc.Graph(figure=fig4)]),
     html.Div([
     dcc.Dropdown(
         id='intervention-dropdown',
