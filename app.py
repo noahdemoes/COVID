@@ -84,7 +84,17 @@ for i in range(1,15):
         max_class.append(classes[class_comparison.index(max_cl)])
     cbg_fips2["Majority Class"]=max_class
     cbg_fips=pd.concat([cbg_fips,cbg_fips2])
-    
+fig4 = px.choropleth_mapbox(cbg_fips, geojson=counties, color="Infected",
+                           locations="FIPS",
+                            animation_frame="time",
+                            animation_group="FIPS",
+                           mapbox_style="carto-positron",
+                            color_continuous_scale="reds",
+                            hover_data=["Susceptible", "Exposed","Infected","Recovered"],
+                           zoom=3, center = {"lat": 37.0902, "lon": -95.7129},
+                           title="US COVID-19 Infected Class by County")
+fig4["layout"].pop("updatemenus")
+
 def combinejson(directory):
     totaloutput=pd.DataFrame(columns=['intervention','no_intervention','time','strategy'])
     i=0
@@ -466,7 +476,8 @@ app.layout = html.Div([
         children=[
             html.H1('COVID Tracker', className="app-header--title"),
         ]
-    ),
+    ),html.Div([
+          dcc.Graph(figure=fig1)]),
     html.Div([
     dcc.Dropdown(
         id='intervention-dropdown',
