@@ -415,6 +415,7 @@ app.layout = html.Div([
 ])
 ])
 
+server = app.server 
 @app.callback(
     dash.dependencies.Output('intervention-output-container', 'children'),
     [dash.dependencies.Input('intervention-dropdown', 'value')])
@@ -440,4 +441,4 @@ def update_output1(value):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True) 
+    app.run_server(debug=True)
