@@ -434,6 +434,7 @@ def update_output1(value):
             style = {'display': 'inline-block', 'width': '95%',"color":"primary"})),
                            dbc.Col(html.Div(children=[html.H1("No Intervention Animation", className="app-header--title"),dcc.Graph(figure=ha)],
             style = {'display': 'inline-block', 'width': '95%',"color":"primary"}))]),
+            html.Img(src="images/10infected_20isolated/intervention/gif/10infected_20isolated.gif")
 
 
         ]))
